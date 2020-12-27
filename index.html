@@ -9,8 +9,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    
+    <meta name="google-signin-client_id" content="489833681684-03j2kg9a9o4brejh3qkkn7t8agmukamh.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
     <title>FitSite</title>
+
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
@@ -23,6 +30,7 @@
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+     <script src="index.js"></script>
 </head>
 
 <body>
@@ -71,7 +79,16 @@
             <h4 class="modal-title">Log in</h4>
           </div>
           <div class="modal-body">
-            <p>MALPOTRO PURE NIS :)</p>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div class="data">
+            
+
+                <p>Profile Details</p>
+                <img id="pic" class="img-circle" width="100px" height="100px"></img>
+                <p>Email Address</p>
+                <p id="email" class="alert alert-danger"></p>
+                <button onclick="signOut()" class="btn btn-danger">Sign Out</button>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -80,6 +97,7 @@
 
       </div>
     </div>
+
 
 
 
