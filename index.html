@@ -12,10 +12,13 @@
     
     
     <meta name="google-signin-client_id" content="489833681684-03j2kg9a9o4brejh3qkkn7t8agmukamh.apps.googleusercontent.com">
+    <meta name="google-signin-cookiepolicy" content="single_host_origin">
+    <meta name="google-signin-scope" content="profile email">
+
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   
+   <script src="index.js"></script>
     <title>FitSite</title>
 
 
@@ -30,7 +33,8 @@
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-     <script src="index.js"></script>
+     
+     
 </head>
 
 <body>
@@ -79,15 +83,12 @@
             <h4 class="modal-title">Log in</h4>
           </div>
           <div class="modal-body">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
             <div class="data">
             
 
-                <p>Profile Details</p>
-                <img id="pic" class="img-circle" width="100px" height="100px"></img>
-                <p>Email Address</p>
-                <p id="email" class="alert alert-danger"></p>
-                <button onclick="signOut()" class="btn btn-danger">Sign Out</button>
+                
+                <a href="#" onclick="signOut();">Sign out</a>
             </div>
           </div>
           <div class="modal-footer">
