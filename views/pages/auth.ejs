@@ -1,0 +1,41 @@
+<%- include('header'); -%>
+    <!-- Hero Section Begin -->
+    <section class="hero-section set-bg" data-setbg="static/admin/img/hero-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="hero-text">
+                        <h1>FITNESS TRACKER</h1>
+                        <span>IIT Bhubaneswar Sports Council</span>
+                        <p>Login with your google account and get started with your won personalised fitness regime</p>
+                        <a href="#" class="primary-btn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Log In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Log in</h4>
+          </div>
+          <div class="modal-body">
+            <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google"></span> SignIn with Google</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<%- include('footer'); -%>
+
+
+    
