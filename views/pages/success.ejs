@@ -1,0 +1,87 @@
+<%- include('header2'); -%>
+
+<br><br><br><br><br>
+  <section class="main">
+    <div class="container">
+      <div class="text-box col-md-offset-1 col-md-10">
+        <h2>Upload exhibitions of your Performances here!!!</h2>
+        <p>An athlete cannot run with money in his pockets. He must run with hope in his heart and dreams in his head.</p>
+      </div>
+        <div class="row container">
+
+        <div class="col-sm-4">
+
+          <center><a class="btn btn-primary rounded">Cycling</a>
+<p>Cover some distance, on wheels that is</p></center>
+<div>
+
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="distc">Distance</label>
+    <input type="text" name="val" placeholder="Distance">
+
+<br>
+
+    <label for="pic-cycle">Upload picture</label>
+
+      <input type="file" name="fileToUpload" id="fileToUpload">
+
+    <input type="hidden" name="section" value="cycling"> 
+    <input type="submit" value="Submit">
+    <br><br>
+  </form>
+</div>
+
+        </div>
+        <div class="col-sm-4">
+
+          <center><a  class="btn btn-primary rounded">Skipping</a>
+<p>Train your legs, Get points</p></center>
+<div>
+
+
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="reps">Repeats</label>
+    <input type="text" name="val" placeholder="Number of Repeats">
+
+
+<br>
+    <label for="pic-skipping">Upload picture</label>
+
+      <input type="file" name="fileToUpload" id="fileToUpload">
+
+      <input type="hidden" name="section" value="skipping"> 
+    <input type="submit" value="Submit">
+    <br><br>
+  </form>
+</div>
+        </div><div class="col-sm-4">
+
+          <center><a href="javascript:" class="btn btn-primary rounded">Running</a>
+<p>Run...Miles to go before you reach #1</p></center>
+<div>
+
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="distr">Repeats</label>
+    <input type="text" name="val" placeholder="Distance ran">
+
+
+
+<br>
+    <label for="pic-running">Upload picture</label>
+
+      <input type="file" name="fileToUpload" id="fileToUpload">
+
+    <input type="hidden" name="section" value="running"> 
+    <input type="submit" value="Submit">
+    <br><br>
+  </form>
+</div>
+        </div>
+        </div>
+      <div class="row">
+
+      </div>
+    </div>
+  </section>
+
+<%- include('footer2'); -%>
