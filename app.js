@@ -24,9 +24,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(fileUpload());
-// app.listen(process.env.PORT || 3000, function(){
-//   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-// });
+ app.listen(process.env.PORT || 3000, function(){
+   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+ });
 
 MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryWrites=true&w=majority"
 ,{
