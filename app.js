@@ -34,9 +34,9 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 }).then(client => {
     console.log('Connected to Database');
     const db = client.db('db');
-  app.listen(3000, ()=>{
-        console.log("server's up")
-  });
+  //app.listen(3000, ()=>{
+    //    console.log("server's up")
+  //});
 
   passport.serializeUser(function(user, done) {
     done(null, user);
