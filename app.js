@@ -1,24 +1,25 @@
 const express = require('express');
 const app = express();
 const bodyParser= require('body-parser');
-const MongoClient = require('mongodb').MongoClient 
+const MongoClient = require('mongodb').MongoClient
 const passport = require('passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { google } = require('googleapis');
 const fs = require('fs');
 const fileUpload = require('express-fileupload')
-
+const ejs = require('ejs');
 app.set('view engine', 'ejs')
-app.use(bodyParser.json() );       
-app.use(bodyParser.urlencoded({     
+var mongoose = require('mongoose');
+app.use(bodyParser.json() );
+app.use(bodyParser.urlencoded({
   extended: true
-})); 
+}));
 app.use("/static",express.static(__dirname + "/static"));
 app.use(session({
   resave: false,
   saveUninitialized: false,
-  secret: 'SECRET' 
+  secret: 'SECRET'
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -35,7 +36,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
     const db = client.db('db');
   app.listen(3000, ()=>{
         console.log("server's up")
-  }); 
+  });
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -55,13 +56,13 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
     },
     function(token, refreshToken, profile, done) {
       console.log('HI');
-      db.collection('users').findOne({ googleid : profile.id } , function(err, user) { 
+      db.collection('users').findOne({ googleid : profile.id } , function(err, user) {
           if (err)
               return done(err);
           else if (user) {
               console.log('user');
               return done(null, user);
-          } 
+          }
           else {
               console.log('ELSE');
               db.collection('users').insertOne({
@@ -80,20 +81,20 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           }
       })
     }
-  )); 
+  ));
 
   app.set('view engine', 'ejs');
-  
+
   app.get('/', function(req, res) {
     res.render('pages/auth');
   });
 
- app.get('/auth/google', 
+ app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive.file'],
     accessType: 'offline', approvalPrompt: 'force' })
   );
 
-  app.get('/auth/google/callback', 
+  app.get('/auth/google/callback',
       passport.authenticate('google', {
           failureRedirect: '/auth/google'
       }) ,
@@ -124,7 +125,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         name: req.user.name,
         photo: req.user.photo,
         email: req.user.email,
-               
+
     }
 
     // if redirect with google drive response
@@ -138,6 +139,20 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       res.render('pages/success', parseData)
     }
   });
+
+  app.get('/lbdr',(req,res)=>{
+    res.render('pages/lbdr');
+  });
+
+  app.get('/lbdc',(req,res)=>{
+    res.render('pages/lbdc');
+  });
+
+  app.get('/lbds',(req,res)=>{
+    res.render('pages/lbds');
+  })
+
+
 
   app.post('/upload', function (req, res) {
     db.collection('users').findOne({email : req.user.email})
@@ -169,7 +184,12 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
         console.log(req.body.section);
         console.log(fp);
-        
+
+        fs.writeFile(filename,data,function(err)
+      {
+        if(err) throw err;
+        console.log('Uploaded to file');
+      });
 
         var t = new Date();
         var dd = String(t.getDate()).padStart(2, '0');
@@ -178,14 +198,14 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         console.log(t);
 
         const fileMetadata = {
-          'name': req.user.email + '-' + t ,
+          'name': req.user.email + '_' + t+'.jpg',
           parents: [fp]
         };
         console.log(fileMetadata);
 
         const media = {
-          mimeType: mimetype,
-          body: Buffer.from(data).toString()
+          mimeType:mimetype,
+          body: fs.createReadStream(filename)
         }
 
         const driveResponse = drive.files.create({
@@ -195,36 +215,55 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         });
 
         var s = t + '-' + req.body.section;
-        var section = req.body.section;     
+        var section = req.body.section;
         let lastupdates = 'lastupdates';
         let lastupdater = 'lastupdater';
-        let lastupdatec = 'lastupdatec'; 
-        
+        let lastupdatec = 'lastupdatec';
+
         var result;
         var update = { $set : {} };
         console.log(srt);
-        if (req.body.section == 'skipping') {result = srt.skipping;update.$set[lastupdates] = s;} 
-        else if (req.body.section == 'running'){ result = srt.running ;update.$set[lastupdater] = s;}
-        else if (req.body.section == 'cycling'){ result = srt.cycling ;update.$set[lastupdatec] = s;}
-        console.log(result);
 
-        
-        update.$set[s] = parseFloat(req.body.val);
-        update.$set[section] = result + parseFloat(req.body.val);
-        console.log(update);
+        if (req.body.section == 'skipping') {
+          db.collection('users').find({'email':req.user.email,'lastupdates':s}).count()
+        .then(function(m){
+            if(m==0){
+          result = srt.skipping;update.$set[lastupdates] = s;
+          update.$set[s] = parseFloat(req.body.val);
+          update.$set[section] = result + parseFloat(req.body.val);
+          console.log(update);
+        }})}
+        else if (req.body.section == 'running'){db.collection('users').find({'email':req.user.email,'lastupdater':s}).count()
+        .then(function(n){
+            if(n==0){
+          result = srt.running;update.$set[lastupdater] = s;
+          update.$set[s] = parseFloat(req.body.val);
+          update.$set[section] = result + parseFloat(req.body.val);
+          console.log(update);
+        }})}
+        else if (req.body.section == 'cycling'){db.collection('users').find({'email':req.user.email,'lastupdatec':s}).count()
+        .then(function(o){
+            if(o==0){
+          result = srt.cycling;update.$set[lastupdatec] = s;
+          update.$set[s] = parseFloat(req.body.val);
+          update.$set[section] = result + parseFloat(req.body.val);
+          console.log(update);
+        }})}
+        console.log(result);
 
         driveResponse.then(data => {
           console.log('then');
             if (data.status == 200){
-              
+
               db.collection('users').findOneAndUpdate(
                 { "email" : req.user.email },
                 update)
               console.log('updated');
-              res.redirect('/success') // success
-            } 
+              res.redirect('/success');
+               // success
+            }
             else{
-              
+
               res.send('error uploading') // unsuccess
             }
 
@@ -233,6 +272,44 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       }
     })
   })
-
-  
 })
+mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryWrites=true&w=majority",{useNewUrlParser: true},{ useUnifiedTopology: true });
+  // Leaderboard
+  var usersSchema = new mongoose.Schema({
+    name: String,
+    cycling: Number,
+    skipping: Number,
+    running: Number
+  });
+  var LBD = mongoose.model('users',usersSchema,'users')
+  app.get('/lbdc', (req, res) => {
+    LBD.find().sort({cycling:-1})
+      .then(result => {
+        res.render('pages/lbdc', { Cycler: result});
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+
+
+  app.get('/lbdr', (req, res) => {
+    LBD.find().sort({running:-1})
+      .then(result => {
+        res.render('pages/lbdr', { Runner: result});
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+
+
+  app.get('/lbds', (req, res) => {
+    LBD.find().sort({skipping:-1})
+      .then(result => {
+        res.render('pages/lbds', { Skipper: result});
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
