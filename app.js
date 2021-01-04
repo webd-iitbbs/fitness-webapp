@@ -51,7 +51,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
   passport.use(new GoogleStrategy({
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "https://sports-council-web-app.herokuapp.com/auth/google/callback",
       userProfileURL  : 'https://www.googleapis.com/oauth2/v3/userinfo'
     },
     function(token, refreshToken, profile, done) {
