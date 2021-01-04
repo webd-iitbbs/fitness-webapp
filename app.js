@@ -178,7 +178,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         let { name: filename, mimetype, data } = req.files.fileToUpload
 
         var fp;
-        if (req.body.section == 'skipping') fp = '1NNgBSQMl_yRqYmP2KWVw1unXf1StAOAp' ;
+        if (req.body.section == 'skipping') fp = '1yqpl9Rilrl6D4MuUfjdPAwCkGpi6ukLO' ;
         else if (req.body.section == 'running') fp = '1Vkjquxw0yveyruvPAlDQuhu_ZM6zPlNk';
         else if (req.body.section == 'cycling') fp = '1es3WXP5ArCtO_AvatV-UIKPFw_erO0gK';
 
