@@ -11,31 +11,33 @@
 
         <div class="col-sm-4">
 
-          <center><a class="btn btn-primary rounded">Cycling</a>
-<p>Cover some distance, on wheels that is</p></center>
+          <center><a class="btn btn-primary rounded" href="/lbdc"><b>Cycling</b><br>Leaderboard</a>
+<p>Cover some distance, on wheels that is<br><b>Upload here for cycling</b></p></center>
 <div>
 
   <form action="/upload" method="post" enctype="multipart/form-data">
     <label for="distc">Distance</label>
-    <input type="text" name="val" placeholder="Distance">
+    <input type="text" name="val" placeholder="Distance cycled in Kilometres">
 
 <br>
 
-    <label for="pic-cycle">Upload picture</label>
+    <label for="pic-cycle">Upload picture as proof</label>
 
       <input type="file" name="fileToUpload" id="fileToUpload">
 
-    <input type="hidden" name="section" value="cycling"> 
+    <input type="hidden" name="section" value="cycling">
     <input type="submit" value="Submit">
     <br><br>
   </form>
+
 </div>
+
 
         </div>
         <div class="col-sm-4">
 
-          <center><a  class="btn btn-primary rounded">Skipping</a>
-<p>Train your legs, Get points</p></center>
+          <center><a  class="btn btn-primary rounded" href="/lbds"><b>Skipping</b><br>Leaderboard</a>
+<p>Train your legs, Get points<br><b>Upload here for Skipping</b></p></center>
 <div>
 
 
@@ -45,33 +47,33 @@
 
 
 <br>
-    <label for="pic-skipping">Upload picture</label>
+    <label for="pic-skipping">Upload picture as proof</label>
 
       <input type="file" name="fileToUpload" id="fileToUpload">
 
-      <input type="hidden" name="section" value="skipping"> 
+      <input type="hidden" name="section" value="skipping">
     <input type="submit" value="Submit">
     <br><br>
   </form>
 </div>
         </div><div class="col-sm-4">
 
-          <center><a href="javascript:" class="btn btn-primary rounded">Running</a>
-<p>Run...Miles to go before you reach #1</p></center>
+          <center><a href="/lbdr" class="btn btn-primary rounded"><b>Running</b><br>Leaderboard</a>
+<p>Run...Miles to go before you reach<br><b>Upload here for Running</b></p></center>
 <div>
 
   <form action="/upload" method="post" enctype="multipart/form-data">
-    <label for="distr">Repeats</label>
-    <input type="text" name="val" placeholder="Distance ran">
+    <label for="distr">Distance</label>
+    <input type="text" name="val" placeholder="Distance ran in Kilometres">
 
 
 
 <br>
-    <label for="pic-running">Upload picture</label>
+    <label for="pic-running">Upload picture as proof</label>
 
       <input type="file" name="fileToUpload" id="fileToUpload">
 
-    <input type="hidden" name="section" value="running"> 
+    <input type="hidden" name="section" value="running">
     <input type="submit" value="Submit">
     <br><br>
   </form>
