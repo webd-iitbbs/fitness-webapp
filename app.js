@@ -110,7 +110,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         if (err) {
           return next(err);
         } else {
-          return res.redirect('https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/');
+          return res.redirect('https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://sports-council-web-app.herokuapp.com/');
         }
       });
     }
