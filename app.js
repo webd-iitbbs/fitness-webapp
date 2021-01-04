@@ -198,10 +198,10 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         console.log(t);
 
         const fileMetadata = {
-          'name': req.user.email + '_' + t+'.jpg',
+          'name': req.user.email + '_' + t,
           parents: [fp]
         };
-        console.log(fileMetadata);
+        
 
         const media = {
           mimeType:mimetype,
