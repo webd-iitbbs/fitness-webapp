@@ -34,6 +34,12 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
+    <script>
+    history.pushState(null, null, null);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, null);
+    });
+</script>
     <script src="/static/admin/js/jquery-3.3.1.min.js"></script>
     <script src="/static/admin/js/bootstrap.min.js"></script>
     <script src="/static/admin/js/jquery.magnific-popup.min.js"></script>
