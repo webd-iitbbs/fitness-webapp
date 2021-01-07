@@ -235,24 +235,24 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
             if(m==0){
               
           result = srt.skipping;update.$set[lastupdates] = s;
-          update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt));
-          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt));
+          update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
+          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
           console.log(update);
         }})}
         else if (req.body.section == 'running'){db.collection('users').find({'email':req.user.email,'lastupdater':s}).count()
         .then(function(n){
             if(n==0){
           result = srt.running;update.$set[lastupdater] = s;
-          update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt));
-          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt));
+          update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
+          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
           console.log(update);
         }})}
         else if (req.body.section == 'cycling'){db.collection('users').find({'email':req.user.email,'lastupdatec':s}).count()
         .then(function(o){
             if(o==0){
           result = srt.cycling;update.$set[lastupdatec] = s;
-         update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt));
-          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt));
+         update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
+          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
           console.log(update);
         }})}
         console.log(result);
