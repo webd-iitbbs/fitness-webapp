@@ -224,8 +224,15 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         let lastupdates = 'lastupdates';
         let lastupdater = 'lastupdater';
         let lastupdatec = 'lastupdatec';
+        let lastupdatesd = 'lastupdatest';
+        let lastupdaterd = 'lastupdatert';
+        let lastupdatecd = 'lastupdatect';
+        let lastupdatest = 'lastupdatest';
+        let lastupdatert = 'lastupdatert';
+        let lastupdatect = 'lastupdatect';
 
-        var result;
+        var ad;
+        var at;
         var update = { $set : {} };
         console.log(srt);
         
@@ -234,9 +241,13 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         .then(function(m){
             if(m==0){
               
-          result = srt.skipping;update.$set[lastupdates] = s;
+          ad = srt.lastupdatesd;
+          at = srt.lastupdatest;
+          update.$set[lastupdates] = s;
+              update.$set[lastupdatesd] = ad + parseFloat(req.body.val);
+              update.$set[lastupdatest] = at + parseFloat(req.body.valt);
           update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
+          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt)));
           console.log(update);
         }})}
         else if (req.body.section == 'running'){db.collection('users').find({'email':req.user.email,'lastupdater':s}).count()
@@ -255,7 +266,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
           console.log(update);
         }})}
-        console.log(result);
+        
 
         driveResponse.then(data => {
           console.log('then');
