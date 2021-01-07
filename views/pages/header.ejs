@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type = "text/javascript" >
+        function preventBack() { window.history.forward(1); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+</script>
    
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fitness-Webapp</title>
@@ -17,14 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
         rel="stylesheet">
         
-        $().ready(function() {
-     
-        history.pushState(null, null, 'login');
-        window.addEventListener('popstate', function () {
-            history.pushState(null, null, 'login');
-        });
-    
-});
+      
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" type="text/css">
