@@ -225,16 +225,16 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           fields: 'id'
         });
 
-        var s ='08/01-' + req.body.section;
+        var s =t +'-' + req.body.section;
         var section = req.body.section;
         let lastupdates = 'lastupdates';
         let lastupdater = 'lastupdater';
         let lastupdatec = 'lastupdatec';
         let lastupdatesd = 'lastupdatesd';
-        let lastupdaterd = 'lastupdatert';
+        let lastupdaterd = 'lastupdaterd';
         let lastupdatecd = 'lastupdatecd';
         let lastupdatest = 'lastupdatest';
-        let lastupdatert = 'lastupdaterd';
+        let lastupdatert = 'lastupdatert';
         let lastupdatect = 'lastupdatect';
 
         var ad;
