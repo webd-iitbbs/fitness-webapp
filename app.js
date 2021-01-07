@@ -74,7 +74,13 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
                 "photo" : profile.photos[0].value,
                 "cycling" : 0,
                 "running" :0,
-                "skipping" :0
+                "skipping" :0,
+                "lastupdatesd":0,
+                "lastupdatest":0,
+                "lastupdatecd":0,
+                "lastupdaterd":0,
+                "lastupdatect":0,
+                "lastupdatert":0
               })
               console.log(profile.emails[0].value);
               return done(null, user);
