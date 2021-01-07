@@ -259,17 +259,25 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         else if (req.body.section == 'running'){db.collection('users').find({'email':req.user.email,'lastupdater':s}).count()
         .then(function(n){
             if(n==0){
-          result = srt.running;update.$set[lastupdater] = s;
+              ad = srt.lastupdaterd;
+          at = srt.lastupdatert;
+          update.$set[lastupdater] = s;
+              update.$set[lastupdaterd] = ad + parseFloat(req.body.val);
+              update.$set[lastupdatert] = at + parseFloat(req.body.valt);
           update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
+          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt)));
           console.log(update);
         }})}
         else if (req.body.section == 'cycling'){db.collection('users').find({'email':req.user.email,'lastupdatec':s}).count()
         .then(function(o){
             if(o==0){
-          result = srt.cycling;update.$set[lastupdatec] = s;
+               ad = srt.lastupdatecd;
+          at = srt.lastupdatect;
+         update.$set[lastupdatec] = s;
+               update.$set[lastupdatecd] = ad + parseFloat(req.body.val);
+              update.$set[lastupdatect] = at + parseFloat(req.body.valt);
          update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = result + (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
+          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt)));
           console.log(update);
         }})}
         
