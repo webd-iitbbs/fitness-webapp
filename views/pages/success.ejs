@@ -6,9 +6,7 @@
       <div class="text-box col-md-offset-1 col-md-10">
         <h2>Upload exhibitions of your Performances here!!!</h2>
         <p>An athlete cannot run with money in his pockets. He must run with hope in his heart and dreams in his head.</p>
-        <h3><b>Rules: </b></h3>
-        <p><b>1. Multiple uploads for a specific Drill on a single day will not be counted<br>
-                        2. Upload in Image format for Cycling and Running and in Video format for Skipping.Uploads of other formats will not be considered.<br>3. Only users with IIT BBS mail accounts can participate.If you are logged in into some other google mail account,please do logout of that mail account and try again with your institute mail account</b></p>
+        
       </div>
         <div class="row container">
 
@@ -21,6 +19,8 @@
   <form action="/upload" method="post" enctype="multipart/form-data">
     <label for="distc">Distance</label>
     <input type="number" name="val" placeholder="Distance cycled in Kilometres">
+    <label for="distc">Time Taken</label>
+    <input type="number" name="valt" placeholder="Time Taken">
 
 <br>
 
@@ -47,7 +47,8 @@
   <form action="/upload" method="post" enctype="multipart/form-data">
     <label for="reps">Repeats</label>
     <input type="number" name="val" placeholder="Number of Repeats">
-
+<label for="distc">Time Taken</label>
+    <input type="number" name="valt" placeholder="Time Taken">
 
 <br>
     <label for="pic-skipping">Upload video as proof</label>
@@ -68,7 +69,8 @@
   <form action="/upload" method="post" enctype="multipart/form-data">
     <label for="distr">Distance</label>
     <input type="number" name="val" placeholder="Distance ran in Kilometres">
-
+<label for="distc">Time Taken</label>
+    <input type="number" name="valt" placeholder="Time Taken">
 
 
 <br>
