@@ -230,11 +230,11 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         let lastupdates = 'lastupdates';
         let lastupdater = 'lastupdater';
         let lastupdatec = 'lastupdatec';
-        let lastupdatesd = 'lastupdatest';
+        let lastupdatesd = 'lastupdatesd';
         let lastupdaterd = 'lastupdatert';
-        let lastupdatecd = 'lastupdatect';
+        let lastupdatecd = 'lastupdatecd';
         let lastupdatest = 'lastupdatest';
-        let lastupdatert = 'lastupdatert';
+        let lastupdatert = 'lastupdaterd';
         let lastupdatect = 'lastupdatect';
 
         var ad;
