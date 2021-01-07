@@ -228,14 +228,15 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         var result;
         var update = { $set : {} };
         console.log(srt);
-
+        
         if (req.body.section == 'skipping') {
           db.collection('users').find({'email':req.user.email,'lastupdates':s}).count()
         .then(function(m){
             if(m==0){
+              const x = req.body.val;
           result = srt.skipping;update.$set[lastupdates] = s;
-          update.$set[s] = parseFloat(req.body.val);
-          update.$set[section] = result + parseFloat(req.body.val);
+          update.$set[s] = parseFloat(x);
+          update.$set[section] = result + parseFloat(x);
           console.log(update);
         }})}
         else if (req.body.section == 'running'){db.collection('users').find({'email':req.user.email,'lastupdater':s}).count()
