@@ -270,7 +270,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
               update.$set[lastupdaterd] = ad + parseFloat(req.body.val);
               update.$set[lastupdatert] = at + parseFloat(req.body.valt);
           update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
+          update.$set[section] = parseFloat((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
           console.log(update);
         }})}
         else if (req.body.section == 'cycling'){db.collection('users').find({'email':req.user.email,'lastupdatec':s}).count()
@@ -282,7 +282,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
                update.$set[lastupdatecd] = ad + parseFloat(req.body.val);
               update.$set[lastupdatect] = at + parseFloat(req.body.valt);
          update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
+          update.$set[section] = parseFloat((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
           console.log(update);
         }})}
         
