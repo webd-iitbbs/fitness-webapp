@@ -171,7 +171,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
 
 
-  app.post('/upload', function (req, res) {
+  async function f(){app.post('/upload', function (req, res) {
     db.collection('users').findOne({email : req.user.email})
     .then(srt => {
 
@@ -199,7 +199,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           'access_token' :accessToken,
           'refresh_token':req.user.refreshToken
         });
-
+      
         const drive = google.drive({
             version: 'v3',
             auth: oauth2Client
@@ -324,7 +324,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       }
     })
   })
-})
+}
 mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryWrites=true&w=majority",{useNewUrlParser: true},{ useUnifiedTopology: true });
   // Leaderboard
   var usersSchema = new mongoose.Schema({
@@ -333,6 +333,8 @@ mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryW
     skipping: Number,
     running: Number
   });
+  
+  
   var LBD = mongoose.model('users',usersSchema,'users')
   app.get('/lbdc', (req, res) => {
     LBD.find().sort({cycling:-1})
