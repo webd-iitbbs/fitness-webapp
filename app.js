@@ -1,4 +1,5 @@
 const express = require('express');
+var refresh = require('passport-oauth2-refresh');
 const app = express();
 const bodyParser= require('body-parser');
 const MongoClient = require('mongodb').MongoClient
@@ -177,8 +178,12 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       else {
         console.log('upload route called');
         const oauth2Client = new google.auth.OAuth2()
+        refresh.requestNewAccessToken('google', user.refreshToken, function(err, accessToken) {
+            if(err || !accessToken) { return send401Response(); }
+          var at = accessToken;
+          });
         oauth2Client.credentials = ({
-          'access_token':req.user.token,
+          'access_token':at,
           
             'refresh_token':req.user.refreshToken
         })
