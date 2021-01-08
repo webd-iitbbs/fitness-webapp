@@ -49,7 +49,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
   const GOOGLE_CLIENT_ID = '489833681684-03j2kg9a9o4brejh3qkkn7t8agmukamh.apps.googleusercontent.com';
   const GOOGLE_CLIENT_SECRET = 'QEFy62F0vHs9txr8ll15GuK5';
-  passport.use(new GoogleStrategy({
+  const strategy = new GoogleStrategy({
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL: "https://sports-council-web-app.herokuapp.com/auth/google/callback",
@@ -62,6 +62,11 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
               return done(err);
           else if (user) {
               console.log('user');
+            refresh.requestNewAccessToken('google', refreshToken, function(err, accessToken, refreshToken) {
+               db.collection('users').findOneAndUpdate(
+                { "refreshtoken" : refreshToken }, {"token" : accessToken })
+
+            });
               return done(null, user);
                
             
@@ -91,7 +96,10 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           }
       })
     }
-  ));
+  );
+  passport.use(strategy);
+  refresh.use(strategy);
+
 
   app.set('view engine', 'ejs');
 
