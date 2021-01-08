@@ -66,6 +66,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
             console.log(refreshToken);
             refresh.requestNewAccessToken('google', refreshToken, function(err, accessToken, refreshToken) {
               console.log(accessToken);
+              const at = accessToken;
                db.collection('users').findOneAndUpdate(
                 { "email" : profile.emails[0].value }, { "$set" : {"token" : accessToken } })
               console.log('updated');
@@ -191,7 +192,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         const oauth2Client = new google.auth.OAuth2();
         
         oauth2Client.credentials = ({
-          'access_token':req.user.token,
+          'access_token':at,
           
             'refresh_token':req.user.refreshToken
         })
