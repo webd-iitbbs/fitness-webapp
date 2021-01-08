@@ -63,7 +63,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           else if (user) {
               console.log('user');
               return done(null, user);
-               db.collection('users').findOneAndUpdate({googleid:profile.id},{token : token});
+               
             
             
           }
