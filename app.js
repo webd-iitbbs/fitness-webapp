@@ -97,7 +97,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
  app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive.file'],
-    accessType: 'offline', prompt:consent })
+    accessType: 'offline', prompt:'consent' })
   );
 
   app.get('/auth/google/callback',
