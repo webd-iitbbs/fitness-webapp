@@ -62,9 +62,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           else if (user) {
               console.log('user');
               return done(null, user);
-              oauth2Client.credentials.refresh_token = refreshToken
-               oauth2Client.refreshAccessToken( (error, tokens) => {
-                  await db.collection('users').findOnefindOneAndUpdate({googleid : profile.id},{token : tokens});
+              
         
     
     })
