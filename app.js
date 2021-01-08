@@ -174,9 +174,10 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       else {
         console.log('upload route called');
         const oauth2Client = new google.auth.OAuth2()
-        oauth2Client.setCredentials({
+        oauth2Client.credentials = ({
+          'access_token':req.user.token,
             'refresh_token':req.user.refreshToken
-        });
+        })
 
         const drive = google.drive({
             version: 'v3',
