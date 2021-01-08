@@ -64,7 +64,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
               console.log('user');
             refresh.requestNewAccessToken('google', refreshToken, function(err, accessToken, refreshToken) {
                db.collection('users').findOneAndUpdate(
-                { "refreshtoken" : refreshToken }, {"token" : accessToken })
+                { "refreshtoken" : refreshToken }, { $set = {"token" : accessToken }; })
 
             });
               return done(null, user);
