@@ -171,7 +171,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
 
 
-  app.post('/upload',async function (req, res) {
+  app.post('/upload',function (req, res) {
     db.collection('users').findOne({email : req.user.email})
     .then(srt => {
 
@@ -180,15 +180,17 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       else {
         console.log('upload route called');
         
-        let tokenDetails = await fetch("https://accounts.google.com/o/oauth2/token", {
-            "method": "POST",
-            "body": JSON.stringify({
-                "client_id":  GOOGLE_CLIENT_ID,
-                "client_secret": GOOGLE_CLIENT_SECRET,
-                "refresh_token": req.user.refreshToken,
-                "grant_type": "refresh_token",
-            })
-        });
+        let tokenDetails = async () => { 
+          await fetch("https://accounts.google.com/o/oauth2/token", {
+              "method": "POST",
+              "body": JSON.stringify({
+                  "client_id":  GOOGLE_CLIENT_ID,
+                  "client_secret": GOOGLE_CLIENT_SECRET,
+                  "refresh_token": req.user.refreshToken,
+                  "grant_type": "refresh_token",
+              })
+          });
+        }
         tokenDetails = await tokenDetails.json();
         console.log("tokenDetails");
         console.log(JSON.stringify(tokenDetails,null,2));  // => Complete Response
