@@ -46,7 +46,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
   passport.deserializeUser(function(user, done) {
     done(null, user);
   });
-
+  var at ;
   const GOOGLE_CLIENT_ID = '489833681684-03j2kg9a9o4brejh3qkkn7t8agmukamh.apps.googleusercontent.com';
   const GOOGLE_CLIENT_SECRET = 'QEFy62F0vHs9txr8ll15GuK5';
   const strategy = new GoogleStrategy({
@@ -66,7 +66,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
             console.log(refreshToken);
             refresh.requestNewAccessToken('google', refreshToken, function(err, accessToken, refreshToken) {
               console.log(accessToken);
-              const at = accessToken;
+              at = accessToken;
                db.collection('users').findOneAndUpdate(
                 { "email" : profile.emails[0].value }, { "$set" : {"token" : accessToken } })
               console.log('updated');
