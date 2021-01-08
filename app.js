@@ -62,6 +62,13 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           else if (user) {
               console.log('user');
               return done(null, user);
+              oauth2Client.credentials.refresh_token = refreshToken
+               oauth2Client.refreshAccessToken( (error, tokens) => {
+                  await db.collection('users').findOnefindOneAndUpdate({googleid : profile.id},{token : tokens});
+        
+    
+    })
+            
           }
           else {
               console.log('ELSE');
@@ -175,7 +182,8 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         console.log('upload route called');
         const oauth2Client = new google.auth.OAuth2()
         oauth2Client.setCredentials({
-            'refresh_token':req.user.refreshToken
+          'access_token' : req.user.token,
+          'refresh_token':req.user.refreshToken
         });
 
         const drive = google.drive({
