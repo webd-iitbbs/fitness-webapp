@@ -191,7 +191,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
               })
           });
         }
-        tokenDetails = tokenDetails.json();
+      async()=>{ await tokenDetails = tokenDetails.json()};
         console.log("tokenDetails");
         console.log(JSON.stringify(tokenDetails,null,2));  // => Complete Response
         const accessToken = tokenDetails.access_token;  // => Store access token
