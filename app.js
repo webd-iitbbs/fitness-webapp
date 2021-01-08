@@ -171,7 +171,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
 
 
-  async function f(){app.post('/upload', function (req, res) {
+  app.post('/upload',async function (req, res) {
     db.collection('users').findOne({email : req.user.email})
     .then(srt => {
 
@@ -324,7 +324,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       }
     })
   })
-}
+
 mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryWrites=true&w=majority",{useNewUrlParser: true},{ useUnifiedTopology: true });
   // Leaderboard
   var usersSchema = new mongoose.Schema({
