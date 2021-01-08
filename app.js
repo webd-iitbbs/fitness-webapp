@@ -218,7 +218,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         };
           makeRequest();
 
-        } else {
+        }) else {
           // There was another error, handle it appropriately.
           return res.status(reason.code).json(reason.message);
         }
