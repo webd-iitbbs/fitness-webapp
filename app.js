@@ -1,5 +1,3 @@
-
-  
 const express = require('express');
 const app = express();
 const bodyParser= require('body-parser');
@@ -99,7 +97,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
  app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive.file'],
-    accessType: 'offline', approvalPrompt: 'force' })
+    accessType: 'offline', prompt:'consent' })
   );
 
   app.get('/auth/google/callback',
@@ -177,8 +175,6 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
         console.log('upload route called');
         const oauth2Client = new google.auth.OAuth2()
         oauth2Client.setCredentials({
-            'access_token': req.user.token,
-             'expires_in': 120,
             'refresh_token':req.user.refreshToken
         });
 
@@ -228,16 +224,16 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           fields: 'id'
         });
 
-        var s = t + '-' + req.body.section;
+        var s =t +'-' + req.body.section;
         var section = req.body.section;
         let lastupdates = 'lastupdates';
         let lastupdater = 'lastupdater';
         let lastupdatec = 'lastupdatec';
         let lastupdatesd = 'lastupdatesd';
-        let lastupdaterd = 'lastupdatert';
+        let lastupdaterd = 'lastupdaterd';
         let lastupdatecd = 'lastupdatecd';
         let lastupdatest = 'lastupdatest';
-        let lastupdatert = 'lastupdaterd';
+        let lastupdatert = 'lastupdatert';
         let lastupdatect = 'lastupdatect';
 
         var ad;
@@ -256,7 +252,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
               update.$set[lastupdatesd] = ad + parseFloat(req.body.val);
               update.$set[lastupdatest] = at + parseFloat(req.body.valt);
           update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
+          update.$set[section] = parseFloat((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
           console.log(update);
         }})}
         else if (req.body.section == 'running'){db.collection('users').find({'email':req.user.email,'lastupdater':s}).count()
@@ -347,4 +343,3 @@ mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryW
         console.log(err);
       });
   });
-
