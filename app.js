@@ -1,6 +1,7 @@
+
+  
 const express = require('express');
 const app = express();
-
 const bodyParser= require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 const passport = require('passport');
@@ -63,11 +64,6 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           else if (user) {
               console.log('user');
               return done(null, user);
-              
-        
-    
-   
-            
           }
           else {
               console.log('ELSE');
@@ -103,7 +99,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
  app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive.file'],
-    accessType: 'offline', prompt:'consent' })
+    accessType: 'offline', approvalPrompt: 'force' })
   );
 
   app.get('/auth/google/callback',
@@ -171,7 +167,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
 
 
-  app.post('/upload',function (req, res) {
+  app.post('/upload', function (req, res) {
     db.collection('users').findOne({email : req.user.email})
     .then(srt => {
 
@@ -179,16 +175,12 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       if (!req.user) res.redirect('/auth/google')
       else {
         console.log('upload route called');
-        
-        
-
         const oauth2Client = new google.auth.OAuth2()
         oauth2Client.setCredentials({
-          'access_token' :req.user.token,
-          
-          'refresh_token':req.user.refreshToken
+            'access_token': req.user.token,
+            'refresh_token':req.user.refreshToken
         });
-      
+
         const drive = google.drive({
             version: 'v3',
             auth: oauth2Client
@@ -235,16 +227,16 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
           fields: 'id'
         });
 
-        var s =t +'-' + req.body.section;
+        var s = t + '-' + req.body.section;
         var section = req.body.section;
         let lastupdates = 'lastupdates';
         let lastupdater = 'lastupdater';
         let lastupdatec = 'lastupdatec';
         let lastupdatesd = 'lastupdatesd';
-        let lastupdaterd = 'lastupdaterd';
+        let lastupdaterd = 'lastupdatert';
         let lastupdatecd = 'lastupdatecd';
         let lastupdatest = 'lastupdatest';
-        let lastupdatert = 'lastupdatert';
+        let lastupdatert = 'lastupdaterd';
         let lastupdatect = 'lastupdatect';
 
         var ad;
@@ -263,7 +255,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
               update.$set[lastupdatesd] = ad + parseFloat(req.body.val);
               update.$set[lastupdatest] = at + parseFloat(req.body.valt);
           update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = parseFloat((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
+          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
           console.log(update);
         }})}
         else if (req.body.section == 'running'){db.collection('users').find({'email':req.user.email,'lastupdater':s}).count()
@@ -275,7 +267,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
               update.$set[lastupdaterd] = ad + parseFloat(req.body.val);
               update.$set[lastupdatert] = at + parseFloat(req.body.valt);
           update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = parseFloat((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
+          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
           console.log(update);
         }})}
         else if (req.body.section == 'cycling'){db.collection('users').find({'email':req.user.email,'lastupdatec':s}).count()
@@ -287,7 +279,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
                update.$set[lastupdatecd] = ad + parseFloat(req.body.val);
               update.$set[lastupdatect] = at + parseFloat(req.body.valt);
          update.$set[s] = (parseFloat(req.body.val)/parseFloat(req.body.valt)).toFixed(3);
-          update.$set[section] = parseFloat((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
+          update.$set[section] = ((ad + parseFloat(req.body.val))/(at + parseFloat(req.body.valt))).toFixed(3);
           console.log(update);
         }})}
         
@@ -313,7 +305,7 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       }
     })
   })
-
+})
 mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryWrites=true&w=majority",{useNewUrlParser: true},{ useUnifiedTopology: true });
   // Leaderboard
   var usersSchema = new mongoose.Schema({
@@ -322,8 +314,6 @@ mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryW
     skipping: Number,
     running: Number
   });
-  
-  
   var LBD = mongoose.model('users',usersSchema,'users')
   app.get('/lbdc', (req, res) => {
     LBD.find().sort({cycling:-1})
@@ -356,3 +346,4 @@ mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryW
         console.log(err);
       });
   });
+
