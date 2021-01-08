@@ -180,26 +180,12 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
       else {
         console.log('upload route called');
         
-        let tokenDetails = async () => { 
-          await fetch("https://accounts.google.com/o/oauth2/token", {
-              "method": "POST",
-              "body": JSON.stringify({
-                  "client_id":  GOOGLE_CLIENT_ID,
-                  "client_secret": GOOGLE_CLIENT_SECRET,
-                  "refresh_token": req.user.refreshToken,
-                  "grant_type": "refresh_token",
-              })
-          });
-        await tokenDetails = tokenDetails.json();
-        }
-      
-        console.log("tokenDetails");
-        console.log(JSON.stringify(tokenDetails,null,2));  // => Complete Response
-        const accessToken = tokenDetails.access_token;  // => Store access token
+        
 
         const oauth2Client = new google.auth.OAuth2()
         oauth2Client.setCredentials({
-          'access_token' :accessToken,
+          'access_token' :req.user.token,
+          'expires_in': 60,
           'refresh_token':req.user.refreshToken
         });
       
