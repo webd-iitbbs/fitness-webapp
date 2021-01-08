@@ -170,11 +170,24 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
 
 
   app.post('/upload', function (req, res) {
+    
+    var retries = 2;
+
+  var send401Response = function() {
+    return res.status(401).end();
+  };
     db.collection('users').findOne({email : req.user.email})
     .then(srt => {
 
-
+      
       if (!req.user) res.redirect('/auth/google')
+      if(err || !user) { return send401Response(); }
+      var makeRequest = function() {
+      retries--;
+      if(!retries) {
+        // Couldn't refresh the access token.
+        return send401Response();
+      }
       else {
         console.log('upload route called');
         const oauth2Client = new google.auth.OAuth2();
@@ -189,6 +202,28 @@ MongoClient.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?ret
             version: 'v3',
             auth: oauth2Client
         });
+        request.then(function(reason) {
+        if(reason.code === 401) {
+          // Access token expired.
+          // Try to fetch a new one.
+          refresh.requestNewAccessToken('google', user.refreshToken, function(err, accessToken) {
+            if(err || !accessToken) { return send401Response(); }
+
+            // Save the new accessToken for future use
+            user.save({ token: accessToken }, function() {
+             // Retry the request.
+             makeRequest();
+            });
+          });
+        };
+          makeRequest();
+
+        } else {
+          // There was another error, handle it appropriately.
+          return res.status(reason.code).json(reason.message);
+        }
+      });
+        makeRequest();
 
         //move file to google drive
 
