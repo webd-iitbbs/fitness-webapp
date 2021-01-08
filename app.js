@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const fetch = require('fetch');
+
 const bodyParser= require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 const passport = require('passport');
