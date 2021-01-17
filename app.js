@@ -328,13 +328,13 @@ mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryW
   // Leaderboard
   var usersSchema = new mongoose.Schema({
     name: String,
-    cycling: Number,
-    skipping: Number,
-    running: Number
+    lastupdatecd: Number,
+    lastupdatesd: Number,
+    lastupdaterd: Number
   });
   var LBD = mongoose.model('users',usersSchema,'users')
   app.get('/lbdc', (req, res) => {
-    LBD.find().sort({cycling:-1})
+    LBD.find().sort({lastupdatecd:-1})
       .then(result => {
         res.render('pages/lbdc', { Cycler: result});
       })
@@ -345,7 +345,7 @@ mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryW
 
 
   app.get('/lbdr', (req, res) => {
-    LBD.find().sort({running:-1})
+    LBD.find().sort({lastupdaterd:-1})
       .then(result => {
         res.render('pages/lbdr', { Runner: result});
       })
@@ -356,7 +356,7 @@ mongoose.connect("mongodb+srv://su123:su123@cluster0.imrnk.mongodb.net/db?retryW
 
 
   app.get('/lbds', (req, res) => {
-    LBD.find().sort({skipping:-1})
+    LBD.find().sort({lastupdatesd:-1})
       .then(result => {
         res.render('pages/lbds', { Skipper: result});
       })
